@@ -19,7 +19,7 @@ The brain-resident myeloid cells, the microglia, and border-associated macrophag
 ## Seurat
 The package Seurat was used for the analyses of the single-cell RNA sequencing data of the study:
 - 1-[merge_data.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/1-merge_data.ipynb) for QC filtering and data merging
-- 2-[microglia_preprocess.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/2-microglia_preprocess.ipynb) preprocessing, integration and UMAP visualisation of data
+- 2-[microglia_preprocess.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/2-microglia_preprocess.ipynb) for preprocessing, integration and UMAP visualisation of data
 - 3-[microglia_HeatMap.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/3-microglia_HeatMap.ipynb) to build the heatmap of expression levels for the top markergenes of CD11B+ cell clusters in PBS condition
 - 4-[main_plot.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/4-main_plot.ipynb) to evaluate cell cluster proportions and for UMAP visualisation with cell cycle scores and SingleR cell annotation predictions
 - 5-[microglia_align_ref_Li.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/5-microglia_align_ref_Li.ipynb) for UMAP visualisation with SingleR cell annotation predictions using the dataset of [Li et al. 2019](https://doi.org/10.1016/j.neuron.2018.12.006)
@@ -28,10 +28,10 @@ The package Seurat was used for the analyses of the single-cell RNA sequencing d
 ## Model predicting clusters 
 
 ## DEG
-The Jupyter notebooks used to build the supplementary table 4:
-  - IL1-beta induced differentially expressed genes in each cluster at each time points
-  - gene cell-cluster markers in the IL1-beta condition
-  - gene cell-cluster markers in the PBS condition
+Differential expression analyses were performed with the <i>FindAllMarkers<i> presented in the supplementary table 3:
+  - notebook to obtain the Supp Table [3a](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3a.ipynb) for IL1-beta induced differentially expressed genes in each cluster at each time points
+  - notebook to obtain the Supp Table [3b](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3b_IL1.ipynb) for gene markers of clusters in the IL1-beta condition
+  - notebook to obtain the Supp Table [3c](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3c_PBS.ipynb) for gene markers of clusters in the PBS condition
 
 ## SCPA
   The Jupyter notebook Fig3
