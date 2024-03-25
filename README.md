@@ -22,22 +22,22 @@ The brain-resident myeloid cells, the microglia, and border-associated macrophag
 
 ## 1- Seurat
 The Jupyter notebooks used for the analyses of the single-cell RNA sequencing data of the study :
-- [QC filtering and data merging](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/merge_data.ipynb)
-- [preprocessing, integration and UMAP visualisation of data](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/microglia_preprocess.ipynb)
-- [building the heatmap of expression levels for the top markergenes of CD11B+ cell clusters in PBS condition](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/microglia_HeatMap.ipynb)
-- [evaluating cell cluster proportions and UMAP visualisation with cell cycle scores and SingleR cell annotation predictions](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/main_plot.ipynb)
-- UMAP visualisation with SingleR cell annotation predictions using the Li et al dataset
-- subclustering of the C0 cluster
+- [QC filtering and data merging](https://github.com/.../merge_data.ipynb)
+- [preprocessing, integration and UMAP visualisation of data](https://github.com/.../microglia_preprocess.ipynb)
+- [building the heatmap of expression levels for the top markergenes of CD11B+ cell clusters in PBS condition](https://github.com/.../microglia_HeatMap.ipynb)
+- [evaluating cell cluster proportions and UMAP visualisation with cell cycle scores and SingleR cell annotation predictions](https://github.com/..../main_plot.ipynb)
+- UMAP visualisation with SingleR cell annotation predictions using the dataset of [Li et al. 2019](https://doi.org/10.1016/j.neuron.2018.12.006) [Notebook](https://github.com/.../SCENIC/microglia.vsn-pipelines.complete.config)
+- [subclustering of the C0 cluster](https://github.com/..../SCENIC/microglia.vsn-pipelines.complete.ipynb)
 
-  ## 2-
+## 2-
 
-  ## 3- DEG
+## 3- DEG
   The Jupyter notebooks used to build the supplementary table 4:
   - IL1-beta induced differentially expressed genes in each cluster at each time points
   - gene cell-cluster markers in the IL1-beta condition
   - gene cell-cluster markers in the PBS condition
 
-  ## 4- SCPA
+## 4- SCPA
   The Jupyter notebook Fig3
   For the subclusters
 
