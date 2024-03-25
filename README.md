@@ -15,7 +15,7 @@ The repository **neonat-inflam-microglia** is divided into five folders:
   - SCENIC
 
 ## Seurat
-The package [Seurat v3.0](https://doi.org/10.1016/j.cell.2019.05.031) was used for the analyses of the single-cell RNA sequencing data of the study:
+The package [Seurat v3.0](https://doi.org/10.1016/j.cell.2019.05.031) was used for the analyses of the single-cell RNA sequencing data of the study (47,211 cells):
 - 1-[merge_data.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/1-merge_data.ipynb) for QC filtering and data merging
 - 2-[microglia_preprocess.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/2-microglia_preprocess.ipynb) for preprocessing, integration and UMAP visualisation of data
 - 3-[microglia_HeatMap.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/3-microglia_HeatMap.ipynb) to build the heatmap of expression levels for the top markergenes of CD11B+ cell clusters in PBS condition
@@ -24,6 +24,7 @@ The package [Seurat v3.0](https://doi.org/10.1016/j.cell.2019.05.031) was used f
 - 6-[microglia_C0subclustering.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/6-microglia_C0subclustering.ipynb) for the subclustering of the C0 cluster
 
 ## Model predicting clusters 
+We used a in-house scRNA-seq pipeline targeting 46 genes to replicate the cell cluster proportions obtained by whole-transcriptome RNA sequencing on 19,061 independently obtained cells. A multinomial logistic model predicting the cluster membership for each cell was fitted to a training dataset containing data restricted to the gene panel for 95% of the cells from the whole transcriptome expression data set. For the remaining 5% of cells used for the whole-trancriptome data set, the fitted model had a good cluster membership prediction performance (AUC = 0.923 and ARI = 0.452).The code to analyse the fitted model is presented in a pdf [document](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/2-Model/Analyse_modele.pdf).
 
 ## DEG
 Differential expression analyses were performed with the <i>FindAllMarkers</i> of the Seurat package. The results are presented in the supplementary table 3:
