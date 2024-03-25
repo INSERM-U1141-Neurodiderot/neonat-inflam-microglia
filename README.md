@@ -1,7 +1,10 @@
 # neonat-inflam-microglia
 
+<!-- [![DOI](https://zenodo.org/badge/696752316.svg)](https://zenodo.org/doi/10.5281/zenodo.TO CREATE) -->
 
 This repository houses the codes for the single-cell transcriptome analyses presented in the study **Neonatal inflammation impairs developmentally associated subsets of microglia and promotes a highly reactive microglial subset**. The raw and processed data are available on GEO with accession number [GSE165113](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE165113) and will be made publically available at the paper acceptance. 
+
+The brain-resident myeloid cells, the microglia, and border-associated macrophages (BAMs) play crucial roles in both immunity and neurodevelopment. The disruption of microglial development trajectories by neonatal inflammatory challenges is an important issue in research on neurodevelopmental disorders (NDDs). We explored the impact of neonatal inflammation induced by interleukin-1 beta injections in a mouse NDD model on the heterogeneity of brain myeloid cell subsets. 
 
 The repository **neonat-inflam-microglia** is divided into five folders: 
 
@@ -11,13 +14,8 @@ The repository **neonat-inflam-microglia** is divided into five folders:
   - SCPA
   - SCENIC
 
-
-## Abstract
-
-The brain-resident myeloid cells, the microglia, and border-associated macrophages (BAMs) play crucial roles in both immunity and neurodevelopment. Microglia regulate neurogenesis, synapse formation and myelination and their heterogeneity is tightly regulated across developmental stages. The disruption of microglial development trajectories by neonatal inflammatory challenges is an important issue in research on neurodevelopmental disorders (NDDs), as models have suggested a strong association between inflammation and the onset of cognitive defects. We explored the impact of neonatal inflammation induced by interleukin-1 beta injections in a mouse NDD model on the heterogeneity of brain myeloid cell subsets. Sparc-expressing microglia were hyperreactive and had high levels of the complement receptor C5AR1, whereas other microglial subsets, including the proliferative and Spp1-enriched microglia, but also BAMs, had lower levels of this receptor. These findings suggest major changes in microglial development trajectories potentially contributing to NDDs induced by neonatal inflammation, and indicate possible treatment strategies targeting microglia.
-
 ## Seurat
-The package Seurat was used for the analyses of the single-cell RNA sequencing data of the study:
+The package [Seurat v3.0](https://doi.org/10.1016/j.cell.2019.05.031) was used for the analyses of the single-cell RNA sequencing data of the study:
 - 1-[merge_data.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/1-merge_data.ipynb) for QC filtering and data merging
 - 2-[microglia_preprocess.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/2-microglia_preprocess.ipynb) for preprocessing, integration and UMAP visualisation of data
 - 3-[microglia_HeatMap.ipynb](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/1-Seurat/3-microglia_HeatMap.ipynb) to build the heatmap of expression levels for the top markergenes of CD11B+ cell clusters in PBS condition
@@ -34,9 +32,16 @@ Differential expression analyses were performed with the <i>FindAllMarkers</i> o
   - notebook to obtain the Supp Table [3c](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3c_PBS.ipynb) for gene markers of clusters in the PBS condition
 
 ## SCPA
-  The Jupyter notebook Fig3
-  For the subclusters
+Functional enrichment was analyzed with the [SCPA](https://doi.org/10.1016/j.celrep.2022.111697) package, with Hallmark functional annotations from the [msigdb](https://doi.org/10.1016/j.cels.2015.12.004) database. Seurat objects were split between PBS and IL-1 and Seurat objects. SCPA for Hallmark functional annotations were extracted at each postnatal day for:
+- each cluster ([notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/4-SCPA/SCPA_fig3.ipynb) to obtain the heatmap of Figure 3A)
+- each subcluster of the cluster C0 ([notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/4-SCPA/SCPA_fig4.ipynb) to obtain the heatmap of Figure 4F)
 
 ## SCENIC
+We investigated the gene regulatory networks of the subcluster C0-2 by using [SCENIC](https://doi.org/10.1038/nmeth.4463) tools to identify regulons. The results are presented in the Figure 4G. The [configuration file](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/5-SCENIC/microglia.vsn-pipelines.complete.config) to execute the pipeline in Nextflow and the [notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/5-SCENIC/microglia_C0_2subcluster_scenic.ipynb) of the code used to obtain the heatmap are available.
 
+## Cite
 
++ To cite this work please use the reference of the following paper:
+
+[Neonatal inflammation impairs developmentally associated subsets of microglia and promotes a highly reactive microglial subset](preprintweblink to add)
+<!-- + BibTeX citation: -->
