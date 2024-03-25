@@ -22,9 +22,24 @@ The brain-resident myeloid cells, the microglia, and border-associated macrophag
 
 ## 1- Seurat
 The Jupyter notebooks used for the analyses of the single-cell RNA sequencing data of the study :
-- [preprocessing, intergation and UMAP visualisation of data](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/microglia_preprocess.ipynb)
-- [merging data](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/merge_data.ipynb)
-- [evaluating cell cluster proportions and plotting cell cycle scores and SinglR cell annotation predictions](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/main_plot.ipynb)
+- [QC filtering and data merging](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/merge_data.ipynb)
+- [preprocessing, integration and UMAP visualisation of data](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/microglia_preprocess.ipynb)
 - [building the heatmap of expression levels for the top markergenes of CD11B+ cell clusters in PBS condition](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/microglia_HeatMap.ipynb)
-- UMAP visualisation with Hammond  
+- [evaluating cell cluster proportions and UMAP visualisation with cell cycle scores and SingleR cell annotation predictions](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/main_plot.ipynb)
+- UMAP visualisation with SingleR cell annotation predictions using the Li et al dataset
+- subclustering of the C0 cluster
+
+  ## 2-
+
+  ## 3- DEG
+  The Jupyter notebooks used to build the supplementary table 4:
+  - IL1-beta induced differentially expressed genes in each cluster at each time points
+  - gene cell-cluster markers in the IL1-beta condition
+  - gene cell-cluster markers in the PBS condition
+
+  ## 4- SCPA
+  The Jupyter notebook Fig3
+  For the subclusters
+
+  ## 5- SCENIC
 
