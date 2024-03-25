@@ -4,11 +4,17 @@
 This repository houses the codes for the single-cell transcriptome analyses presented in the study **Neonatal inflammation impairs developmentally associated subsets of microglia and promotes a highly reactive microglial subset**. The raw and processed data are available on GEO with accession number [GSE165113](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE165113) and will be made publically available at the paper acceptance. 
 
 The repository **neonat-inflam-microglia** is divided into five folders: 
+
 1- Seurat
+
 2- Model predicting clusters 
+
 3- DEG
+
 4- SCPA
+
 5- SCENIC
+
 
 ## Abstract
 
