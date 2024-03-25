@@ -28,7 +28,7 @@ The package Seurat was used for the analyses of the single-cell RNA sequencing d
 ## Model predicting clusters 
 
 ## DEG
-Differential expression analyses were performed with the <i>FindAllMarkers</i> presented in the supplementary table 3:
+Differential expression analyses were performed with the <i>FindAllMarkers</i> of the Seurat package. The results are presented in the supplementary table 3:
   - notebook to obtain the Supp Table [3a](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3a.ipynb) for IL1-beta induced differentially expressed genes in each cluster at each time points
   - notebook to obtain the Supp Table [3b](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3b_IL1.ipynb) for gene markers of clusters in the IL1-beta condition
   - notebook to obtain the Supp Table [3c](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3c_PBS.ipynb) for gene markers of clusters in the PBS condition
