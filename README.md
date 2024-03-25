@@ -28,9 +28,9 @@ We used a in-house scRNA-seq pipeline targeting 46 genes to replicate the cell c
 
 ## DEG
 Differential expression analyses were performed with the <i>FindAllMarkers</i> of the Seurat package. The results are presented in the supplementary table 3:
-  - notebook to obtain the Supp Table [3a](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3a.ipynb) for IL1-beta induced differentially expressed genes in each cluster at each time points
-  - notebook to obtain the Supp Table [3b](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3b_IL1.ipynb) for gene markers of clusters in the IL1-beta condition
-  - notebook to obtain the Supp Table [3c](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3c_PBS.ipynb) for gene markers of clusters in the PBS condition
+  - [notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3a.ipynb) to obtain the Supp Table 3a for IL1-beta induced differentially expressed genes in each cluster at each time points
+  - [notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3b_IL1.ipynb) to obtain the Supp Table 3b for gene markers of clusters in the IL1-beta condition
+  - [notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/3-DEG/supp_table_3c_PBS.ipynb) to obtain the Supp Table 3c for gene markers of clusters in the PBS condition
 
 ## SCPA
 Functional enrichment was analyzed with the [SCPA](https://doi.org/10.1016/j.celrep.2022.111697) package, with Hallmark functional annotations from the [msigdb](https://doi.org/10.1016/j.cels.2015.12.004) database. Seurat objects were split between PBS and IL-1 and Seurat objects. SCPA for Hallmark functional annotations were extracted at each postnatal day for:
