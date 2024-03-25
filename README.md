@@ -22,8 +22,8 @@ The brain-resident myeloid cells, the microglia, and border-associated macrophag
 
 ## 1- Seurat
 The Jupyter notebooks used for the analyses of the single-cell RNA sequencing data of the study :
-- [merging data](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/merge_data.ipynb)
 - [preprocessing, intergation and UMAP visualisation of data](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/microglia_preprocess.ipynb)
+- [merging data](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/merge_data.ipynb)
 - [evaluating cell cluster proportions and plotting cell cycle scores and SinglR cell annotation predictions](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/main_plot.ipynb)
 - [building the heatmap of expression levels for the top markergenes of CD11B+ cell clusters in PBS condition](https://github.com/Goultard59/microglia_paper_2024/blob/main/Seurat/microglia_HeatMap.ipynb)
 - UMAP visualisation with Hammond  
