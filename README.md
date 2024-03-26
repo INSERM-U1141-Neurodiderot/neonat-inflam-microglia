@@ -38,7 +38,7 @@ Functional enrichment was analyzed with the [SCPA](https://doi.org/10.1016/j.cel
 - each subcluster of the cluster C0 ([notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/4-SCPA/SCPA_fig4.ipynb) to obtain the heatmap of Figure 4F)
 
 ## SCENIC
-We investigated the gene regulatory networks of the subcluster C0-2 by using [SCENIC](https://doi.org/10.1038/nmeth.4463) tools to identify regulons. The results are presented in the Figure 4G. The [configuration file](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/5-SCENIC/microglia.vsn-pipelines.complete.config) to execute the pipeline in Nextflow and the [notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/5-SCENIC/microglia_C0_2subcluster_scenic.ipynb) of the code used to obtain the heatmap are available.
+We investigated the gene regulatory networks of the subcluster C0 by using [SCENIC](https://doi.org/10.1038/nmeth.4463) tools to identify regulons. The results are presented in the Figure 4G. The [configuration file](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/5-SCENIC/microglia.vsn-pipelines.complete.config) to execute the pipeline in Nextflow and the [notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/5-SCENIC/microglia_C0_2subcluster_scenic.ipynb) of the code used to obtain the heatmap are available.
 
 ## Cite
 
