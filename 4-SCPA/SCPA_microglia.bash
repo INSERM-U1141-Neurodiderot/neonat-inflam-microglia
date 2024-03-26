@@ -7,4 +7,4 @@
 cd /home/adufour/work
 source /home/adufour/.bashrc
 conda activate singlecell
-Rscript /home/adufour/work/SCPA_sub.R
+Rscript /home/adufour/work/SCPA_microglia.R
