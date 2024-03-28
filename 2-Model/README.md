@@ -41,22 +41,21 @@ python3 -m pip install -r requirements.txt
 
 Download the following files from GEO
 
-+ *info_experience.csv* (metadata on whole data)
-+ *raw_counts.csv* (whole gene expression matrix on the targeted gene panel)
-+ *raw_counts_variable_feature.csv* (whole gene expression matrix, restricted to the 2,000 most variable genes)
-+ *metadata_targeted.csv* (metadata on targeted data)
-+ *raw_counts_targeted.csv* (targeted gene expression matrix on the targeted gene panel)
++ *microglia_info_experience.csv* provides the metadata on whole transcriptome data
++ *microglia_raw_counts.csv* provides the processed whole gene expression matrix on the targeted gene panel
++ *microglia_raw_counts_variable_feature.csv* provides the processed whole gene expression matrix, restricted to the 2,000 most variable genes
++ *microglia_metadata_targeted.csv* provides the metadata on targeted data
++ *microglia_raw_counts_targeted.csv* provides the processed targeted gene expression matrix on the targeted gene panel
 
 and put them in a folder called *data/* in this folder. Then run
 
 ```bash
-bash dataprocess_commands.sh ## data processing from files
 bash analysis_commands.sh    ## obtain the results
 ```
 
 To obtain the figures shown in the paper, run the Jupyter notebook
 
 ```bash
-pythn3 -m pip install notebook
+python3 -m pip install notebook
 jupyter notebook model_analysis.ipynb
 ```

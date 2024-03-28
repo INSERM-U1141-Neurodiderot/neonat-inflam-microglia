@@ -48,7 +48,7 @@ def data_normalisation(wm, type_, tm=None):#tm, type_):
             X_pred_fit = None
         else:
             assert pred_data_type=="targeted"
-            metadata_stdb = pd.read_csv(dfolder+"metadata_targeted.csv", index_col=0) 
+            metadata_stdb = pd.read_csv(dfolder+dfolder_files["metadata_targeted"], index_col=0) 
             X_pred_fit = np.empty(X_pred.shape) ##
             for s in list(set(list(metadata_stdb["SAMP"]))):
                 ids = np.argwhere(metadata_stdb[["SAMP"]].values.flatten()==s).flatten().tolist() 
@@ -112,19 +112,17 @@ if __name__ == "__main__":
     #####################################
 
     if (gene_set == "2000mostvariable"): ## restrict to the 2,000 most variable
-        whole_fname = dfolder+"raw_counts_variable_feature.csv"
+        whole_fname = dfolder+dfolder_files["data_whole2000"]
     elif (gene_set == "full_genes"): ## do not restrict the input set of genes
-        whole_fname = dfolder+"counts_microglia.csv"
+        whole_fname = dfolder+dfolder_files["data_whole"]
     else:
         raise ValueError
-    metadata_fname = dfolder+"info_experience.csv"
-    panel_genes = {
-        "whole": list(pd.read_csv(dfolder+"final_targeted.csv", index_col=0).T.index), 
-        "targeted": list(pd.read_csv(dfolder+"final_targeted.csv", index_col=0).T.index), 
-        "facs": list(matchings_WHOLE2FACS.keys())
-        }[pred_data_type]
+    metadata_fname = dfolder+dfolder_files["metadata_whole"]
+    panel_genes = list(pd.read_csv(dfolder+dfolder_files["data_targeted"], index_col=0).index)
 
     sb.call("mkdir -p "+rfolder,shell=True)
+    if (os.path.exists(rfolder+method+"_model.pck")):
+        exit()
 
     print("Selection of samples..."),
 
@@ -144,61 +142,31 @@ if __name__ == "__main__":
     samples = list(metadata.index)
     ## Clustering using Seurat on whole transcriptome data
     whole_clustering = info_experience.loc[samples]["seurat_clusters"].astype(str)
-    if (clusters_annot=="new_clusters"):
-        assert len(sample_type)==0
-        subclusters = pd.read_csv(dfolder+"metadata_microglia.csv", index_col=0)["new_clusters"].to_dict()
-        whole_clustering = whole_clustering.to_dict()
-        whole_clustering.update(subclusters)
-        whole_clustering = pd.Series(whole_clustering).loc[samples]
-    else:
-        assert clusters_annot=="12clusters"
+    assert clusters_annot=="12clusters"
     whole_genes = sb.check_output("cut -d',' -f1 %s" % whole_fname, shell=True).decode("utf-8").split("\n")[:-1]
     whole_genes = [x[1:-1] for x in whole_genes if (len(x[1:-1])>0)]
+    ## manual replacing
+    whole_genes
 
     assert ((gene_set=="2000mostvariable") and (len(whole_genes)==2000)) or ((gene_set=="full_genes") and (len(whole_genes)==26693))
     assert (len(samples)==47211) and (whole_clustering.shape[0]==len(samples))
-    assert ((clusters_annot=="12clusters") and (whole_clustering.unique().shape[0]==12)) or ((clusters_annot=="new_clusters") and (whole_clustering.unique().shape[0]==16))
+    assert ((clusters_annot=="12clusters") and (whole_clustering.unique().shape[0]==12))
 
     print("... done")
 
     ###### GET GENES
     if (not os.path.exists(rfolder+"gene_list.pck")):
-        if (pred_data_type=="facs"):
-            missing = list(set(panel_genes).difference(whole_genes))
-            whole_panel = list(set(panel_genes).intersection(whole_genes)) 
-            targeted_panel = None
-        else:
-            ## Ensure that all genes in targeted data are present in the whole dataset
-            missing = list(set(panel_genes).difference(whole_genes))
-            from Levenshtein import distance
-            def get_closest_id(missing_gene, whole_genes):
-                dists = [distance(missing_gene, gene) for gene in whole_genes]
-                max_idx = np.argmin(dists)
-                return [whole_genes[max_idx], dists[max_idx]]
-            missing_ids = [[missing_gene]+get_closest_id(missing_gene, whole_genes) for missing_gene in missing]
-    
-            import mygene
-            mg = mygene.MyGeneInfo()
-            res = mg.querymany(missing+whole_genes, scopes='symbol', species='mouse', as_dataframe=True, returnall=True)
-            miss = res["missing"]
-            missing_in_index = list(set(missing).intersection(list(miss["query"])))
-            if (len(missing_in_index) > 0):
-                missing = list(set(missing).difference(missing_in_index))
-            ## manually checked
-            missing = [mis for mis in missing]
-            out = res["out"][["symbol", "_score", "entrezgene"]]
-            missing_entrezgene = list(out.loc[missing]["entrezgene"])
-            out = out.loc[[idx for idx in out.index if (idx not in missing)]]
-            missing_whole_genes = [None]*len(missing)
-            for msid, missing_id in enumerate(missing_entrezgene):
-                match = out.loc[out["entrezgene"] == missing_id]
-                if (len(match.index) > 0):
-                    match = match["symbol"] if ("str" in str(type(match["symbol"]))) else list(match["symbol"])[0]
-                else:
-                    match = [ms_id[1] for ms_id in missing_ids if (ms_id[0]==missing[msid])][0]
-                missing_whole_genes[msid] = match if ("str" in str(type(match))) else list(match)[0]
-            targeted_panel = list(set(panel_genes).intersection(whole_genes)) + [mis for mis in missing if (str(missing_whole_genes[missing.index(mis)]) != "None")]
-            whole_panel = list(set(panel_genes).intersection(whole_genes)) + list(filter(lambda x:x,missing_whole_genes))
+        ## Ensure that all genes in targeted data are present in the whole dataset
+        missing = list(set(panel_genes).difference(whole_genes))
+        from Levenshtein import distance
+        def get_closest_id(missing_gene, whole_genes):
+            dists = [distance(missing_gene, gene) for gene in whole_genes]
+            max_idx = np.argmin(dists)
+            return [whole_genes[max_idx], dists[max_idx]]
+        missing_ids = [[missing_gene]+get_closest_id(missing_gene, whole_genes) for missing_gene in missing]
+        manual_reject = ["ApoE", 'TNFa', 'Clec7a']
+        targeted_panel = list(set(panel_genes).intersection(whole_genes)) + [m[0] for m in missing_ids if (m[0] not in manual_reject)]
+        whole_panel = list(set(panel_genes).intersection(whole_genes)) + [m[1] for m in missing_ids if (m[0] not in manual_reject)]
 
         with open(rfolder+"gene_list.pck", "wb+") as f:
             pkl.dump({pred_data_type+"_panel": targeted_panel, "whole_panel": whole_panel}, f)
@@ -304,18 +272,7 @@ if __name__ == "__main__":
     if (True):
         model_fname = rfolder+method+"_model.pck"
         if (not os.path.exists(method+"_model.pck")):
-            if (method == "NearestCentroid"):
-               clf = lambda _ : neighbors.NearestCentroid(metric=params["metric"], shrink_threshold=params["shrink_threshold"])
-            elif (method == "LogisticRegression"):
-                clf = lambda _ : LogisticRegression(penalty="elasticnet", l1_ratio=params["l1_ratio"], tol=params["tol"], random_state=0, max_iter=params["max_iter"], multi_class=params["multiclass"], solver="saga",class_weight=params["class_weight"])
-            elif (method == "RidgeClassifier"):
-               clf = lambda _ : RidgeClassifier(alpha=params["alpha"], tol=params["tol"], random_state=0,class_weight="balanced")
-            elif (method == "DecisionTree"):
-                clf = lambda _ : DecisionTreeClassifier(criterion="gini", splitter="best", random_state=0)
-            elif (method == "QuadraticDiscriminantAnalysis"):
-                clf = lambda _ : QDA(tol=params["tol"])
-            else:
-                raise ValueError
+            clf = lambda _ : LogisticRegression(penalty="elasticnet", l1_ratio=params["l1_ratio"], tol=params["tol"], random_state=0, max_iter=params["max_iter"], multi_class=params["multiclass"], solver="saga",class_weight=params["class_weight"])
             max_auc_test_di, max_auc_test = testing_routine(clf, Y, X_fit, verbose=True)
             with open(model_fname, "wb+") as f:
                 pkl.dump(max_auc_test_di, f)
