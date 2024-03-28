@@ -16,7 +16,7 @@ def rank_magnitude(x, y):
         return (coef-max_rank-min_rank)/float(max_rank-min_rank)
     return (asym_rm(x,y)+asym_rm(y,x))*0.5
 
-method = ["LogisticRegression", "DecisionTree", "QuadraticDiscriminantAnalysis"][0]#, "NearestCentroid", "RidgeClassifier"][4]#+["centroids"]
+method = ["LogisticRegression", "DecisionTree", "QuadraticDiscriminantAnalysis"][0]
 metric = "correlation"
 Niter_CV=1 # number of times the cross-validation is run
 Nfold_CV=5 # number of parts in cross-validation

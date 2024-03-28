@@ -14,7 +14,6 @@ categories = all_clusters
 def plot_stacked(data, title="percent_stacked_barchart", folder=""):
     barWidth = 0.85
     conditions = list(data.keys())
-    #factors = list(sorted(list(data[conditions[0]].index)))
     categories = list(sorted([c for c in list(data[conditions[0]].columns) if (c != "Ncells")]))
     r = range(data[conditions[0]].shape[0])
     fig, axes = plt.subplots(figsize=(10*len(conditions), 8), nrows=1, ncols=len(conditions))
@@ -40,11 +39,6 @@ def plot_stacked(data, title="percent_stacked_barchart", folder=""):
 #########################################################
 ## Cumulated histogram of proportions in each category ##
 #########################################################
-
-#info_experience = pd.read_csv(dfolder+"info_experience.csv", index_col=0)
-#clustering_whole = info_experience["seurat_clusters"]  
-#samples_whole = np.array([x[:-1] for x in info_experience["SAMP"]])  
-#clustering_targeted = pd.read_csv(rfolder+"Y_targeted_pred.csv", index_col=0)[["Y_targeted_pred"]].astype(int)
 
 metadata_fname = dfolder+"info_experience.csv"
 info_experience = pd.read_csv(metadata_fname, index_col=0)
@@ -77,9 +71,7 @@ clustering_targeted = clustering_targeted["Y_targeted_pred"]
 ## <AGE>-<COND> samples
 if (pred_data_type=="whole"):
 	samples_targeted = samples_whole
-	#samples_targeted = [metadata_whole.loc[x]["PND"].upper()+"-"+metadata_whole.loc[x]["STIM"].upper() for x in metadata_whole.index] ## TODO
 elif (pred_data_type=="targeted"):
-	#metadata = pd.read_csv(dfolder+"metadata_targeted.csv", index_col=0)
 	metadata = pd.read_csv(dfolder+"final_metadata_targeted.csv", index_col=0)
 	metadata = metadata.loc[~metadata.index.duplicated()]
 	samples_targeted = [metadata.loc[x]["PND"].upper()+"-"+metadata.loc[x]["STIM"].upper() for x in metadata.index]

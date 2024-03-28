@@ -2,17 +2,6 @@
 
 import subprocess as sb
 
-#first_time=False
-## Modules
-#if (first_time):
-#    pyversion = sb.check_output("python3 --version", shell=True).decode("utf-8") 
-#    assert ".".join(pyversion.split(".")[:2]) == "Python 3.6"
-#    sb.call("python -m pip install -U pip", shell=True) #newest version of pip
-#    pipversion = sb.check_output("echo $(python3 -m pip --version) |  cut -d" " -f2", shell=True).decode("utf-8")
-#    assert int(pipversion.split(".")) >= 19
-#    sb.call("python3 -m pip install setuptools==51.0.0 numpy==1.16.6 pandas==0.24.2 scipy==1.2.3 scikit-learn==0.24.0 seaborn==0.9.1 mygene==3.1.0 umap-learn==0.4.6 umap-learn[plot] Levenshtein==0.18.1", shell=True)
-#    #sb.call("python3 -m pip install --no-binary :all: nmslib", shell=True)
-
 import random
 random.seed(0)
 import numpy as np
@@ -35,8 +24,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression, RidgeClassifier
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis as QDA
 from multiprocessing import cpu_count
-#https://scikit-learn.org/stable/modules/multiclass
-#Can't use any method relying on pairwise distances, because #samples is too large (kNN, SVM, ...)
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.model_selection import cross_validate
@@ -133,9 +120,7 @@ if __name__ == "__main__":
     metadata_fname = dfolder+"info_experience.csv"
     panel_genes = {
         "whole": list(pd.read_csv(dfolder+"final_targeted.csv", index_col=0).T.index), 
-        ## list(pd.read_csv(dfolder+"raw_counts.csv", index_col=0).index), 
         "targeted": list(pd.read_csv(dfolder+"final_targeted.csv", index_col=0).T.index), 
-        ## list(pd.read_csv(dfolder+"raw_counts_targeted.csv", index_col=0).index),
         "facs": list(matchings_WHOLE2FACS.keys())
         }[pred_data_type]
 
@@ -167,10 +152,8 @@ if __name__ == "__main__":
         whole_clustering = pd.Series(whole_clustering).loc[samples]
     else:
         assert clusters_annot=="12clusters"
-    #whole_genes = list(pd.read_csv(whole_fname, index_col=0).index)
     whole_genes = sb.check_output("cut -d',' -f1 %s" % whole_fname, shell=True).decode("utf-8").split("\n")[:-1]
     whole_genes = [x[1:-1] for x in whole_genes if (len(x[1:-1])>0)]
-    #targeted_clustering = info_experience["Seurat_clusters_targeted"]
 
     assert ((gene_set=="2000mostvariable") and (len(whole_genes)==2000)) or ((gene_set=="full_genes") and (len(whole_genes)==26693))
     assert (len(samples)==47211) and (whole_clustering.shape[0]==len(samples))
@@ -178,22 +161,11 @@ if __name__ == "__main__":
 
     print("... done")
 
-    #get_genes = lambda x : sb.check_output("cat "+x+".csv | cut -d',' -f1", shell=True).decode("utf-8").split("\n")[1:-1]
-    #get_samples = lambda x : sb.check_output("head -n1 "+x+".csv", shell=True).decode("utf-8").split("\n")[0].split(",")
-
-    #print("Building targeted_matrix..."),
-
-    #targeted_samples, targeted_genes = get_samples("raw_counts"), get_genes("raw_counts")
-    #whole_fname = "raw_counts_variable_feature" if (os.path.exists("raw_counts_variable_feature.csv")) else "raw_counts_subset_feature"
-    ## Restriction to panel genes
-    #whole_samples, whole_genes = get_samples(whole_fname), get_genes(whole_fname)
-
     ###### GET GENES
     if (not os.path.exists(rfolder+"gene_list.pck")):
         if (pred_data_type=="facs"):
             missing = list(set(panel_genes).difference(whole_genes))
-            #print(missing)
-            whole_panel = list(set(panel_genes).intersection(whole_genes)) #+ list(filter(lambda x:x,missing_whole_genes))
+            whole_panel = list(set(panel_genes).intersection(whole_genes)) 
             targeted_panel = None
         else:
             ## Ensure that all genes in targeted data are present in the whole dataset
@@ -213,7 +185,7 @@ if __name__ == "__main__":
             if (len(missing_in_index) > 0):
                 missing = list(set(missing).difference(missing_in_index))
             ## manually checked
-            missing = [mis for mis in missing]# if (mis not in ['Jak3', 'IFNGR1', 'Map3k8', 'Nfkb1', 'Stat3'])]
+            missing = [mis for mis in missing]
             out = res["out"][["symbol", "_score", "entrezgene"]]
             missing_entrezgene = list(out.loc[missing]["entrezgene"])
             out = out.loc[[idx for idx in out.index if (idx not in missing)]]
@@ -227,11 +199,6 @@ if __name__ == "__main__":
                 missing_whole_genes[msid] = match if ("str" in str(type(match))) else list(match)[0]
             targeted_panel = list(set(panel_genes).intersection(whole_genes)) + [mis for mis in missing if (str(missing_whole_genes[missing.index(mis)]) != "None")]
             whole_panel = list(set(panel_genes).intersection(whole_genes)) + list(filter(lambda x:x,missing_whole_genes))
-
-        #missing_samples = list(set(targeted_samples).difference(whole_samples))
-        #assert len(missing_samples) == 0
-        #missing_samples = list(set(whole_samples).difference(targeted_samples))
-        #assert len(missing_samples) == 0
 
         with open(rfolder+"gene_list.pck", "wb+") as f:
             pkl.dump({pred_data_type+"_panel": targeted_panel, "whole_panel": whole_panel}, f)
@@ -247,14 +214,6 @@ if __name__ == "__main__":
 ## Counts for targeted RNAseq ##
 ################################
 
-#targeted_matrix = pd.read_csv("raw_counts.csv").loc[targeted_panel][samples].dropna().T
-#targeted_matrix = pd.read_csv("raw_counts.csv").loc[targeted_panel].dropna().T
-#Nsamples_targeted, N_features = np.shape(targeted_matrix)
-
-#print(set(targeted_genes).difference(set(targeted_panel)))
-
-#print("... done")
-
     print("Building whole_matrix..."),
 
     #######################################################################################
@@ -268,15 +227,11 @@ if __name__ == "__main__":
         sb.call("head -n1 "+whole_fname+" > "+rfolder+"raw_counts_subset_feature.csv", shell=True)
         sb.call("grep -Fwf ids.csv "+whole_fname+" >> "+rfolder+"raw_counts_subset_feature.csv", shell=True)
         sb.call("rm -f ids.csv", shell=True)
-    #whole_matrix = pd.read_csv("raw_counts_subset_feature.csv").loc[whole_panel][samples].dropna().T
     whole_matrix = pd.read_csv(rfolder+"raw_counts_subset_feature.csv", index_col=0).loc[whole_panel]
     in_samples = [x for x in list(whole_matrix.columns) if (x in samples)]
     whole_matrix = whole_matrix[in_samples].dropna().T
     whole_clustering = whole_clustering.loc[in_samples]
-    #Nsamples_whole, N_features_ = np.shape(targeted_matrix)
 
-    #assert Nsamples_whole == Nsamples_targeted
-    #assert N_features == N_features_
     assert whole_clustering.shape[0]==whole_matrix.shape[0]
 
     print("... done")
@@ -289,7 +244,6 @@ if __name__ == "__main__":
 
     X_fit, _ = data_normalisation(whole_matrix, normalisation_type, None)
     Y = np.ravel(list(whole_clustering))
-    #Y_true = np.ravel(list(targeted_clustering))
 
     ##############################
     ## CROSS VALIDATION ROUTINE ##
@@ -347,37 +301,6 @@ if __name__ == "__main__":
         print("mean ARI Train: %.2f (+- %.2f)\tTest: %.2f (+- %.2f)" % (np.mean(mean_ari_train), np.std(mean_ari_train),np.mean(mean_ari_test), np.std(mean_ari_test)))
         return max_auc_test_di, max_auc_test
 
-#if (method == "centroids"):
-#    centroids_fname = "centroids_metric="+params["metric"]+".csv"
-#    x, y, s = X_fit_train, Y_train, samples_train
-#    if (not os.path.exists(centroids_fname)):
-#        all_clusters = list(set(y.tolist()))
-#        centroids = pd.DataFrame([], index=[cluster for cluster in all_clusters], columns=whole_matrix.columns)
-#        for sc, cluster in enumerate(all_clusters):
-#            print("Computing centroid #"+str(sc+1)+" out of "+str(len(all_clusters)))
-#            ids_cluster = [sidx for sidx,_ in enumerate(s) if (y[sidx] == cluster)]
-#            barycenter = np.mean(x[ids_cluster,:], axis=0)
-#            if (metric == "euclidean"):
-#                centroids.loc[cluster] = barycenter
-#            elif (metric == "cityblock"):
-#                centroids.loc[cluster] = np.median(x[ids_cluster,:], axis=0)
-#            else:
-#                f = lambda xx : np.sum(pdist(xx.reshape(1,-1), x[ids_cluster, :], metric=params["dist"]))
-#                res = minimize(f, barycenter, method='Nelder-Mead', tol=1e-6)
-#                centroids.loc[cluster] = res.x
-#        centroids.to_csv(centroids_fname)
-#    else:
-#        centroids = pd.read_csv(centroids_fname)
-#        centroids.index = centroids[centroids.columns[0]]
-#        centroids = centroids.drop(columns=centroids.columns[:1])
-#    def predict(X):
-#        ## rows = samples in X, columns = clusters in centroids
-#        dist_mat = pdist(X, centroids.values, metric=params["dist"])
-#        clusters = [centroids.index[idx] for idx in np.argmin(dist_mat, axis=1).tolist()]
-#        return np.ravel(clusters)
-#else:
-
-#from sklearn.multiclass import OneVsRestClassifier
     if (True):
         model_fname = rfolder+method+"_model.pck"
         if (not os.path.exists(method+"_model.pck")):
@@ -393,91 +316,14 @@ if __name__ == "__main__":
                 clf = lambda _ : QDA(tol=params["tol"])
             else:
                 raise ValueError
-            #clf.fit(X_fit,Y)
             max_auc_test_di, max_auc_test = testing_routine(clf, Y, X_fit, verbose=True)
             with open(model_fname, "wb+") as f:
-                #pkl.dump(clf,f)
                 pkl.dump(max_auc_test_di, f)
         else:
             with open(model_fname, "rb") as f:
-                #clf = pkl.load(f)
                 max_auc_test_di = pkl.load(f)
 
     clf = max_auc_test_di["estimator"]
     print(clf)
 
     print("... done!")
-
-##############################
-## COMPARE TO TARGETED DATA ##
-##############################
-
-#samples_targeted = [list(targeted_matrix.index).index(s) for s in samples]
-#samples_whole = [list(whole_matrix.index).index(s) for s in samples]
-
-#print("Compute scores..."),
-
-## Compare clusters and clusterings
-#from sklearn.metrics import adjusted_rand_score as ARI
-#from sklearn.metrics import roc_auc_score as AUC
-#from sklearn.preprocessing import OneHotEncoder
-#from sklearn.model_selection import RepeatedStratifiedKFold
-#onehot = OneHotEncoder(handle_unknown='error')
-#onehot.fit(np.concatenate((Y,Y_true),axis=0).reshape(-1, 1))
-#print(onehot.categories_)
-## same clusters between (predicted) targeted data and (true) whole data?
-#Y_whole = Y[samples_whole]
-#Y_targeted_pred = clf.predict(X_pred_fit)[samples_targeted]
-## same clusters between (predicted) targeted data and (predicted) whole data?
-#Y_whole_pred = clf.predict(X_fit)[samples_whole]
-## same clusters between (predicted) and (true) targeted data?
-#Y_targeted = Y_true[samples_targeted]
-## same clusters between (predicted) and (true) whole data?
-#values_cols = ["Seurat(target)","Predicted(target)","Seurat(whole)","Predicted(whole)"]
-#values = [Y_targeted,Y_targeted_pred,Y_whole,Y_whole_pred]
-#values_onehot = [onehot.transform(y.reshape(-1, 1)).toarray() for y in values]
-#ari_df, auc_df = [pd.DataFrame([], index=values_cols) for _ in range(2)]
-#for iv, v in enumerate(values_cols):
-#    print(v)
-#    ari_df[v] = [ARI(values[iv], y) for y in values]
-#    auc_list = []
-#    for y in values_onehot:
-#        keep_ids = np.argwhere(np.sum(values_onehot[iv],axis=0)).flatten().tolist()
-#        true_rest,pred_rest = [x[:,keep_ids] for x in [values_onehot[iv], y]]
-#        auc = AUC(true_rest,pred_rest,average='weighted',multi_class=params["multiclass"])
-#        auc_list.append(auc)
-#    auc_df[v] = auc_list
-
-#print("ARI values")
-#print(ari_df)
-#print("AUC values")
-#print(auc_df)
-
-#print("... done!")
-
-############################
-## SAVE RESULTS           ##
-############################
-
-#print("Saving results..."),
-
-#suffix = "_method=%s_metric=%s_%s" % (method,metric,sample_type)
-
-## Save ARI/AUC results 
-#ari_df.to_csv(rfolder+"aridf"+suffix+".csv")
-#auc_df.to_csv(rfolder+"aucdf"+suffix+".csv")
-
-## Save clusterings
-#cols=["Seurat_clusters(whole)", "Learnt_clusters(whole)", "Seurat_clusters(targeted)", "Learnt_clusters(targeted)"]
-#clusterings = pd.DataFrame([], index=samples, columns=cols)
-#clusterings["Seurat_clusters(whole)"] = Y_whole
-#clusterings["Learnt_clusters(whole)"] = Y_whole_pred
-#clusterings["Seurat_clusters(targeted)"] = Y_targeted
-#clusterings["Learnt_clusters(targeted)"] = Y_targeted_pred
-#clusterings.to_csv(rfolder+"results"+suffix+".csv")
-
-#print("... done!")
-
-## Save matrices
-#np.savetxt(rfolder+"X_fit"+suffix+".txt", X_fit)
-#np.savetxt(rfolder+"X_pred_fit"+suffix+".txt", X_pred_fit)

@@ -46,8 +46,6 @@ Download the following files from GEO
 + *raw_counts_variable_feature.csv* (whole gene expression matrix, restricted to the 2,000 most variable genes)
 + *metadata_targeted.csv* (metadata on targeted data)
 + *raw_counts_targeted.csv* (targeted gene expression matrix on the targeted gene panel)
-+ *export_PBS_CD11B_MATRIX_concat_CD11B_PBS_v3_1.csv* (FACS data on P5-PBS cells)
-+ *export_IL1_CD11B_MATRIX_concat_IL1_CD11B_v3_1.csv* (FACS data on P5-IL1 cells)
 
 and put them in a folder called DATA/ in this folder. Then run
 

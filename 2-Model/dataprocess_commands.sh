@@ -41,6 +41,3 @@ echo $((NBCELLS+1))" == "$(wc -l final_metadata_targeted.csv | cut -d' ' -f1)
 echo "is the same gene order 1 == "$(cat gene_order.csv | uniq -u | wc -l)
 rm gene_order.csv metadata_targeted.csv
 rm -rf matrice/
-
-## la matrice de comptage whole RNAseq, les metadata associés, les metadatas associés aux targeted RNAseq.
-## subclusters_whole_FILES
