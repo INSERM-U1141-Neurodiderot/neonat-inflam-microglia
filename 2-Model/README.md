@@ -47,7 +47,7 @@ Download the following files from GEO
 + *metadata_targeted.csv* (metadata on targeted data)
 + *raw_counts_targeted.csv* (targeted gene expression matrix on the targeted gene panel)
 
-and put them in a folder called DATA/ in this folder. Then run
+and put them in a folder called *data/* in this folder. Then run
 
 ```bash
 bash dataprocess_commands.sh ## data processing from files
@@ -57,5 +57,6 @@ bash analysis_commands.sh    ## obtain the results
 To obtain the figures shown in the paper, run the Jupyter notebook
 
 ```bash
+pythn3 -m pip install notebook
 jupyter notebook model_analysis.ipynb
 ```

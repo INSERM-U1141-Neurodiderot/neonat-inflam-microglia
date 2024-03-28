@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#cd DATA/
-
 unzip -qq -o matrice.zip
 
 ## targeted data

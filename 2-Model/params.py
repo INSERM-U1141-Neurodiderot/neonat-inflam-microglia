@@ -41,7 +41,7 @@ age = factors[-1]
 batch = ["a", "b", "c", "d", "e", "f"][0]
 sample_type = [age.upper()+"-"+condition.upper()+batch.lower(),age.upper()+"-"+condition.upper(),""][-1]
 
-dfolder="DATA/"
+dfolder="data/" ## data folder
 rfolder="results_"+("_".join([pred_data_type,normalisation_type,sample_type,method]))+"/"
 
 matchings_WHOLE2FACS = {
