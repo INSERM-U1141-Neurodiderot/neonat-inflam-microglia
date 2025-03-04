@@ -41,8 +41,23 @@ Functional enrichment was analyzed with the [SCPA](https://doi.org/10.1016/j.cel
 We investigated the gene regulatory networks of the subcluster C0 by using [SCENIC](https://doi.org/10.1038/nmeth.4463) tools to identify regulons. The results are presented in the Figure 4G. The [configuration file](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/5-SCENIC/microglia.vsn-pipelines.complete.config) to execute the pipeline in Nextflow and the [notebook](https://github.com/INSERM-U1141-Neurodiderot/neonat-inflam-microglia/blob/main/5-SCENIC/microglia_C0_2subcluster_scenic.ipynb) of the code used to obtain the heatmap are available.
 
 ## Cite
+To cite this work please use the reference of the following paper:
 
-+ To cite this work please use the reference of the following paper:
++ Formatted citation:
+> Dufour A et al. Neonatal inflammation impairs developmentally-associated microglia and promotes a highly reactive microglial subset. Brain Behav Immun. 2025 Jan;123:466-482.([https://doi-org.10.1016/j.bbi.2024.09.019](https://doi-org.10.1016/j.bbi.2024.09.019))
 
-[Neonatal inflammation impairs developmentally associated subsets of microglia and promotes a highly reactive microglial subset](preprintweblink to add)
-<!-- + BibTeX citation: -->
++ BibTeX citation: 
+```bash
+@article{DUFOUR2025466,
+title = {Neonatal inflammation impairs developmentally-associated microglia and promotes a highly reactive microglial subset},
+journal = {Brain, Behavior, and Immunity},
+volume = {123},
+pages = {466-482},
+year = {2025},
+issn = {0889-1591},
+doi = {https://doi.org/10.1016/j.bbi.2024.09.019},
+url = {https://www.sciencedirect.com/science/article/pii/S0889159124006238},
+author = {Adrien Dufour and Ariane {Heydari Olya} and Sophie Foulon and Clémence Réda and Amazigh Mokhtari and Valérie Faivre and Jennifer Hua and Cindy Bokobza and Andrew D. Griffiths and Philippe Nghe and Pierre Gressens and Andrée Delahaye-Duriez and Juliette {Van Steenwinckel}},
+abstract = {Microglia and border-associated macrophages play critical roles in both immunity and neurodevelopment. The disruption of microglial development trajectories by neonatal inflammation is an important issue in research on neurodevelopmental disorders (NDDs), as models have suggested a strong association between inflammation and cognitive deficits. Here, we explored by single-cell RNA sequencing and flow cytometry the impact of neonatal inflammation in a mouse NDD model on brain myeloid cell subsets. A specific subset of microglia expressing the complement receptor C5ar1 has been identified, in which inflammatory pathways are most strongly activated. Based on transcriptional similarity, this subset appears to originate from the most mature and “homeostatic“ microglia at this stage of development and demonstrated hypersensitivity to inflammation. Besides that, Spp1-microglia supporting oligodendrocyte differentiation, primitive and proliferative microglia were reduced by inflammation. These findings suggest major changes in microglial subsets developmental trajectories and reactivity contributing to NDDs induced by neonatal inflammation.}
+}
+```
